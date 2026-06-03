@@ -473,12 +473,62 @@
   }
 
   /* ----------------------------------------------------------------
+     Smart in-page navigation
+     Tall sections (e.g. #bilgi) align their bottom into view so the
+     last element — "Çocuklara iyi uykular" — is fully visible.
+     ---------------------------------------------------------------- */
+  function smoothToHash(hash) {
+    var el;
+    try { el = document.querySelector(hash); } catch (e) { return; }
+    if (!el) return;
+
+    var docTop = el.getBoundingClientRect().top + window.pageYOffset;
+    var vh = window.innerHeight;
+    var h = el.offsetHeight;
+    var target;
+
+    if (h <= vh - 24) {
+      // Fits on screen: center it nicely
+      target = docTop - (vh - h) / 2;
+    } else {
+      // Taller than screen: align the bottom (+ small gap) into view
+      target = docTop + h - vh + 28;
+    }
+
+    target = Math.max(0, Math.round(target));
+    var reduce = window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: target, behavior: reduce ? "auto" : "smooth" });
+  }
+
+  function initNav() {
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      var hash = a.getAttribute("href");
+      if (!hash || hash === "#") return;
+      a.addEventListener("click", function (e) {
+        var el = document.querySelector(hash);
+        if (!el) return;
+        e.preventDefault();
+        smoothToHash(hash);
+        if (history.replaceState) history.replaceState(null, "", hash);
+      });
+    });
+
+    // Honor a hash present on initial load (e.g. /#bilgi shared link)
+    if (window.location.hash && window.location.hash.length > 1) {
+      var initial = window.location.hash;
+      setTimeout(function () { smoothToHash(initial); }, 60);
+    }
+  }
+
+  /* ----------------------------------------------------------------
      Boot
      ---------------------------------------------------------------- */
   function boot() {
     initCountdown();
     initCalendar();
     initDirections();
+    initNav();
     initReveal();
     initPetals();
   }

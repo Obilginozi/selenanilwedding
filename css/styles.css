@@ -170,8 +170,8 @@ a { color: inherit; }
   background-size: cover;
   background-position: center 38%;
   background-repeat: no-repeat;
-  opacity: 0.26;
-  filter: grayscale(0.18) brightness(0.9) contrast(1.02);
+  opacity: 0.5;
+  filter: grayscale(0.08) brightness(0.98) contrast(1.04);
   transform: scale(1.04);
 }
 
@@ -182,8 +182,8 @@ a { color: inherit; }
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(75% 70% at 50% 42%, rgba(14, 10, 12, 0.35) 0%, rgba(14, 10, 12, 0.72) 70%, rgba(14, 10, 12, 0.92) 100%),
-    linear-gradient(180deg, rgba(14, 10, 12, 0.55) 0%, rgba(14, 10, 12, 0.35) 45%, rgba(14, 10, 12, 0.88) 100%);
+    radial-gradient(78% 72% at 50% 42%, rgba(14, 10, 12, 0.12) 0%, rgba(14, 10, 12, 0.5) 68%, rgba(14, 10, 12, 0.82) 100%),
+    linear-gradient(180deg, rgba(14, 10, 12, 0.42) 0%, rgba(14, 10, 12, 0.2) 45%, rgba(14, 10, 12, 0.8) 100%);
   pointer-events: none;
 }
 
@@ -205,7 +205,7 @@ a { color: inherit; }
 }
 
 @media (max-width: 600px) {
-  .hero::before { background-position: center 42%; opacity: 0.3; }
+  .hero::before { background-position: center 42%; opacity: 0.56; }
 }
 
 .hero__names {
