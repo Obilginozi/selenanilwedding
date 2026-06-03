@@ -21,6 +21,7 @@
   /* Type */
   --font-display: "Playfair Display", "Cormorant Garamond", Georgia, serif;
   --font-serif:   "Cormorant Garamond", Georgia, serif;
+  --font-script:  "Great Vibes", "Cormorant Garamond", cursive;
   --font-sans:    "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* Layout */
@@ -209,22 +210,28 @@ a { color: inherit; }
 }
 
 .hero__names {
-  font-family: var(--font-display);
-  font-weight: 500;
-  margin: 6px 0 4px;
-  line-height: 1.02;
-  font-size: clamp(3.4rem, 17vw, 7rem);
-  letter-spacing: 0.01em;
+  font-family: var(--font-script);
+  font-weight: 400;
+  margin: 10px 0 6px;
+  line-height: 1.0;
+  font-size: clamp(4.4rem, 22vw, 9rem);
+  letter-spacing: 0.005em;
+  background: linear-gradient(180deg, var(--text) 20%, var(--gold-soft) 75%, var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 3px 20px rgba(0, 0, 0, 0.55));
 }
 
 .hero__names span { display: block; }
 .hero__names .amp {
   display: block;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 0.42em;
+  font-family: var(--font-script);
+  font-size: 0.5em;
+  margin: -4px 0;
+  -webkit-text-fill-color: var(--gold);
   color: var(--gold);
-  margin: 2px 0;
 }
 
 .hero__divider {
@@ -242,20 +249,40 @@ a { color: inherit; }
 }
 .hero__divider .diamond { color: var(--gold); font-size: 0.9rem; }
 
+.hero__meta {
+  display: inline-block;
+  margin: 4px auto 24px;
+  padding: 16px clamp(22px, 6vw, 38px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(14, 10, 12, 0.32);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
 .hero__date {
   font-family: var(--font-serif);
-  font-size: clamp(1.25rem, 5vw, 1.7rem);
-  letter-spacing: 0.18em;
+  font-size: clamp(1.2rem, 5vw, 1.65rem);
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--rose);
-  margin: 0 0 4px;
+  margin: 0;
+}
+
+.hero__meta-line {
+  display: block;
+  height: 1px;
+  width: 70%;
+  margin: 10px auto;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
 }
 
 .hero__place {
   color: var(--text-dim);
-  letter-spacing: 0.1em;
-  font-size: 0.95rem;
-  margin: 0 0 22px;
+  letter-spacing: 0.12em;
+  font-size: clamp(0.85rem, 3.4vw, 1rem);
+  margin: 0;
 }
 
 .hero__invite {
