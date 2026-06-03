@@ -369,47 +369,43 @@ a { color: inherit; }
 }
 
 /* ===================================================================
-   QUOTES
+   INTERSTITIAL QUOTE BANDS (appear between sections on scroll)
    =================================================================== */
-.quotes {
-  margin-top: 46px;
-  display: grid;
-  gap: 20px;
+.quote-band {
+  text-align: center;
+  padding: clamp(70px, 16vw, 130px) 24px;
+  max-width: 760px;
+  margin: 0 auto;
+  position: relative;
 }
 
-.quote {
-  margin: 0;
-  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(42,22,32,0.5));
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: var(--radius);
-  padding: 32px 28px;
-  position: relative;
-}
-.quote::before {
-  content: "\201C";
-  position: absolute;
-  top: -6px;
-  left: 18px;
-  font-family: var(--font-display);
-  font-size: 4.5rem;
-  color: var(--wine-soft);
-  line-height: 1;
-}
-.quote blockquote {
-  margin: 0;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(1.15rem, 4vw, 1.5rem);
-  color: var(--text);
-  position: relative;
-  z-index: 1;
-}
-.quote figcaption {
-  margin-top: 14px;
-  text-align: right;
+.quote-band__mark {
+  display: block;
   color: var(--gold);
-  letter-spacing: 0.08em;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
+  margin-bottom: 22px;
+  opacity: 0.85;
+}
+
+.quote-band__text {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 6vw, 2.6rem);
+  line-height: 1.3;
+  background: linear-gradient(180deg, var(--text) 35%, var(--rose-dim));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.quote-band__author {
+  margin: 22px 0 0;
+  color: var(--gold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
 }
 
 /* ===================================================================
@@ -466,6 +462,21 @@ a { color: inherit; }
   flex-wrap: wrap;
 }
 .info-card__actions .btn { flex: 1 1 200px; }
+
+.info-note {
+  max-width: 600px;
+  margin: 22px auto 0;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.05rem, 3.4vw, 1.25rem);
+  color: var(--rose-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.info-note__icon { font-style: normal; }
 
 /* ===================================================================
    FOOTER
