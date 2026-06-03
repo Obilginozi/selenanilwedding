@@ -369,46 +369,6 @@ a { color: inherit; }
 }
 
 /* ===================================================================
-   INTERSTITIAL QUOTE BANDS (appear between sections on scroll)
-   =================================================================== */
-.quote-band {
-  text-align: center;
-  padding: clamp(70px, 16vw, 130px) 24px;
-  max-width: 760px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.quote-band__mark {
-  display: block;
-  color: var(--gold);
-  font-size: 1.1rem;
-  margin-bottom: 22px;
-  opacity: 0.85;
-}
-
-.quote-band__text {
-  margin: 0;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(1.5rem, 6vw, 2.6rem);
-  line-height: 1.3;
-  background: linear-gradient(180deg, var(--text) 35%, var(--rose-dim));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.quote-band__author {
-  margin: 22px 0 0;
-  color: var(--gold);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  font-size: 0.82rem;
-}
-
-/* ===================================================================
    EVENT INFO
    =================================================================== */
 .info-card {
@@ -463,20 +423,52 @@ a { color: inherit; }
 }
 .info-card__actions .btn { flex: 1 1 200px; }
 
-.info-note {
+.kids-note {
   max-width: 600px;
-  margin: 22px auto 0;
+  margin: 40px auto 0;
   text-align: center;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(1.05rem, 3.4vw, 1.25rem);
-  color: var(--rose-dim);
+  padding: clamp(28px, 6vw, 40px) 24px;
+  border-radius: var(--radius);
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(201, 162, 75, 0.1), transparent 60%),
+    linear-gradient(180deg, rgba(232, 197, 207, 0.05), rgba(42, 22, 32, 0.35));
+  border: 1px solid var(--line);
+}
+
+.kids-note__icon {
+  display: block;
+  font-size: clamp(2rem, 8vw, 2.8rem);
+  line-height: 1;
+  filter: drop-shadow(0 4px 14px rgba(201, 162, 75, 0.35));
+}
+
+.kids-note__divider {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
+  margin: 16px auto;
+  max-width: 200px;
 }
-.info-note__icon { font-style: normal; }
+.kids-note__divider span:not(.diamond) {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.kids-note__divider .diamond { color: var(--gold); font-size: 0.8rem; }
+
+.kids-note__text {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 6vw, 2.2rem);
+  line-height: 1.25;
+  background: linear-gradient(180deg, var(--rose) 25%, var(--rose-dim));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
 /* ===================================================================
    FOOTER

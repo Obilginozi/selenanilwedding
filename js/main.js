@@ -14,6 +14,7 @@
       "Selen & Anıl evleniyor! En mutlu günümüzde sizleri de aramızda görmekten mutluluk duyarız.",
     location: "Başoğlu Elit Kır Bahçesi, Çerkez Taş Köprü Köyü, Merkez / Düzce",
     mapUrl: "https://share.google/QC530GW3RZ2aOKU3E",
+    mapQuery: "Başoğlu Elit Kır Bahçesi, Düzce",
     // Local Turkey time (UTC+3). Start 19:00, end ~23:30.
     start: { y: 2026, mo: 9, d: 20, h: 19, mi: 0 },
     end: { y: 2026, mo: 9, d: 20, h: 23, mi: 30 },
@@ -191,7 +192,9 @@
     outlook:
       '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 4v3.5l8 .01V19a1 1 0 0 1-1 1h-7v-2.5l-2 .8V4l9-2v2h-7zm-1.2 5.6A3.2 3.2 0 0 0 8.6 8c-2 0-3.4 1.7-3.4 4s1.4 4 3.4 4 3.2-1.7 3.2-4c0-.9-.2-1.7-.6-2.4zM8.6 14c-1 0-1.6-.9-1.6-2s.6-2 1.6-2 1.5.9 1.5 2-.6 2-1.5 2z"/></svg>',
     download:
-      '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5z"/></svg>'
+      '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5z"/></svg>',
+    pin:
+      '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>'
   };
 
   function optionEl(opts) {
@@ -277,47 +280,106 @@
   }
 
   /* ----------------------------------------------------------------
-     Modal open / close
+     Directions (maps) options
      ---------------------------------------------------------------- */
-  var modal = document.getElementById("cal-modal");
-  var lastFocused = null;
-
-  function openModal() {
-    if (!modal) return;
-    buildModalOptions();
-    lastFocused = document.activeElement;
-    modal.hidden = false;
-    document.body.style.overflow = "hidden";
-    var firstBtn = modal.querySelector(".cal-option");
-    if (firstBtn) firstBtn.focus();
-    document.addEventListener("keydown", onKeydown);
+  function googleMapsUrl() {
+    return (
+      "https://www.google.com/maps/dir/?api=1&destination=" +
+      encodeURIComponent(EVENT.mapQuery)
+    );
   }
 
-  function closeModal() {
-    if (!modal) return;
-    modal.hidden = true;
-    document.body.style.overflow = "";
-    document.removeEventListener("keydown", onKeydown);
-    if (lastFocused && lastFocused.focus) lastFocused.focus();
+  function appleMapsUrl() {
+    return "https://maps.apple.com/?daddr=" + encodeURIComponent(EVENT.mapQuery);
   }
 
-  function onKeydown(e) {
-    if (e.key === "Escape") closeModal();
+  function buildMapsOptions(close) {
+    var wrap = document.getElementById("maps-options");
+    if (!wrap) return;
+    wrap.innerHTML = "";
+
+    var plat = detectPlatform();
+
+    var google = {
+      name: "Google Haritalar",
+      hint: "Google Maps ile yol tarifi",
+      icon: ICONS.pin,
+      href: googleMapsUrl(),
+      recommended: plat.android,
+      onClick: function () { close(); }
+    };
+
+    var apple = {
+      name: "Apple Haritalar",
+      hint: "Apple Maps ile yol tarifi",
+      icon: ICONS.apple,
+      href: appleMapsUrl(),
+      recommended: plat.apple,
+      onClick: function () { close(); }
+    };
+
+    var order = plat.apple ? [apple, google] : [google, apple];
+    order.forEach(function (o) { wrap.appendChild(optionEl(o)); });
+  }
+
+  /* ----------------------------------------------------------------
+     Generic bottom-sheet modal controller
+     ---------------------------------------------------------------- */
+  function createModal(modalId, closeAttr, optionSelector) {
+    var modal = document.getElementById(modalId);
+    var lastFocused = null;
+
+    function onKeydown(e) {
+      if (e.key === "Escape") close();
+    }
+
+    function open() {
+      if (!modal) return;
+      lastFocused = document.activeElement;
+      modal.hidden = false;
+      document.body.style.overflow = "hidden";
+      var first = modal.querySelector(optionSelector);
+      if (first) first.focus();
+      document.addEventListener("keydown", onKeydown);
+    }
+
+    function close() {
+      if (!modal) return;
+      modal.hidden = true;
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKeydown);
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
+    }
+
+    if (modal) {
+      modal.querySelectorAll("[" + closeAttr + "]").forEach(function (c) {
+        c.addEventListener("click", close);
+      });
+    }
+
+    return { el: modal, open: open, close: close };
   }
 
   function initCalendar() {
-    var triggers = document.querySelectorAll("[data-add-to-calendar]");
-    triggers.forEach(function (t) {
+    var modal = createModal("cal-modal", "data-cal-close", ".cal-option");
+    document.querySelectorAll("[data-add-to-calendar]").forEach(function (t) {
       t.addEventListener("click", function (e) {
         e.preventDefault();
-        openModal();
+        buildModalOptions();
+        modal.open();
       });
     });
-    if (modal) {
-      modal.querySelectorAll("[data-cal-close]").forEach(function (c) {
-        c.addEventListener("click", closeModal);
+  }
+
+  function initDirections() {
+    var modal = createModal("maps-modal", "data-maps-close", ".cal-option");
+    document.querySelectorAll("[data-directions]").forEach(function (t) {
+      t.addEventListener("click", function (e) {
+        e.preventDefault();
+        buildMapsOptions(modal.close);
+        modal.open();
       });
-    }
+    });
   }
 
   /* ----------------------------------------------------------------
@@ -416,6 +478,7 @@
   function boot() {
     initCountdown();
     initCalendar();
+    initDirections();
     initReveal();
     initPetals();
   }

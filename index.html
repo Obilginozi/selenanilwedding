@@ -84,13 +84,6 @@
       </div>
     </section>
 
-    <!-- ===== INTERSTITIAL QUOTE 1 ===== -->
-    <aside class="quote-band reveal" aria-label="Söz">
-      <span class="quote-band__mark" aria-hidden="true">&#10022;</span>
-      <p class="quote-band__text">Aşk birbirine bakmak değil, birlikte aynı yöne bakmaktır.</p>
-      <p class="quote-band__author">&#8212; Antoine de Saint-Exupéry</p>
-    </aside>
-
     <!-- ===== STORY ===== -->
     <section class="section section--story" id="hikayemiz">
       <div class="container">
@@ -138,13 +131,6 @@
       </div>
     </section>
 
-    <!-- ===== INTERSTITIAL QUOTE 2 ===== -->
-    <aside class="quote-band reveal" aria-label="Söz">
-      <span class="quote-band__mark" aria-hidden="true">&#10022;</span>
-      <p class="quote-band__text">Birlikte yaşlanmak değil, birlikte gençleşmek, birlikte büyümek ve hayatı paylaşmak için varız.</p>
-      <p class="quote-band__author">&#8212; Selen &amp; Anıl</p>
-    </aside>
-
     <!-- ===== EVENT INFO ===== -->
     <section class="section section--info" id="bilgi">
       <div class="container">
@@ -176,15 +162,18 @@
           </div>
 
           <div class="info-card__actions">
-            <a class="btn btn--ghost" href="https://share.google/QC530GW3RZ2aOKU3E" target="_blank" rel="noopener">Yol Tarifi</a>
+            <button class="btn btn--ghost" data-directions>Yol Tarifi</button>
             <button class="btn btn--solid" data-add-to-calendar>Takvime Ekle</button>
           </div>
         </div>
 
-        <p class="info-note reveal">
-          <span class="info-note__icon" aria-hidden="true">&#127769;</span>
-          Çocuklara iyi uykular dileriz.
-        </p>
+        <div class="kids-note reveal">
+          <span class="kids-note__icon" aria-hidden="true">&#127769;</span>
+          <div class="kids-note__divider" aria-hidden="true">
+            <span></span><span class="diamond">&#10022;</span><span></span>
+          </div>
+          <p class="kids-note__text">Çocuklara iyi uykular dileriz</p>
+        </div>
       </div>
     </section>
   </main>
@@ -204,6 +193,19 @@
       <h3 class="cal-modal__title" id="cal-modal-title">Takvime Ekle</h3>
       <p class="cal-modal__subtitle">Selen &amp; Anıl · 20 Eylül 2026, 19:00</p>
       <div class="cal-modal__options" id="cal-options">
+        <!-- options injected by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DIRECTIONS (MAPS) MODAL ===== -->
+  <div class="cal-modal" id="maps-modal" hidden>
+    <div class="cal-modal__backdrop" data-maps-close></div>
+    <div class="cal-modal__sheet" role="dialog" aria-modal="true" aria-labelledby="maps-modal-title">
+      <button class="cal-modal__close" data-maps-close aria-label="Kapat">&times;</button>
+      <h3 class="cal-modal__title" id="maps-modal-title">Yol Tarifi</h3>
+      <p class="cal-modal__subtitle">Başoğlu Elit Kır Bahçesi · Düzce</p>
+      <div class="cal-modal__options" id="maps-options">
         <!-- options injected by JS -->
       </div>
     </div>
