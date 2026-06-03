@@ -216,17 +216,24 @@ a { color: inherit; }
   line-height: 1.0;
   font-size: clamp(4.4rem, 22vw, 9rem);
   letter-spacing: 0.005em;
-  background: linear-gradient(180deg, var(--text) 20%, var(--gold-soft) 75%, var(--gold));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
   text-shadow: none;
-  filter: drop-shadow(0 3px 20px rgba(0, 0, 0, 0.55));
 }
 
 .hero__names span { display: block; }
+
+/* Gradient fill applied per-name so transforms don't break the clip */
+.hero__names span:not(.amp) {
+  background: linear-gradient(180deg, var(--text) 20%, var(--gold-soft) 78%, var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: drop-shadow(0 3px 20px rgba(0, 0, 0, 0.55));
+}
+
 .hero__names span:first-of-type { transform: translateX(clamp(-3.5rem, -9vw, -1rem)); }
 .hero__names span:last-of-type  { transform: translateX(clamp(1rem, 9vw, 3.5rem)); }
+
 .hero__names .amp {
   display: block;
   font-family: var(--font-script);
