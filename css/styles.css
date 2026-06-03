@@ -154,21 +154,59 @@ a { color: inherit; }
   text-align: center;
   padding: 90px 22px 70px;
   overflow: hidden;
+  isolation: isolate;
   background:
     radial-gradient(80% 60% at 50% 30%, rgba(58, 31, 44, 0.7), transparent 70%),
     linear-gradient(180deg, #120b10 0%, #0e0a0c 100%);
 }
 
+/* Ghosted venue photo behind the hero text */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: url("../assets/hero.jpg");
+  background-size: cover;
+  background-position: center 38%;
+  background-repeat: no-repeat;
+  opacity: 0.26;
+  filter: grayscale(0.18) brightness(0.9) contrast(1.02);
+  transform: scale(1.04);
+}
+
+/* Darkening vignette so the names stay legible on any screen */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(75% 70% at 50% 42%, rgba(14, 10, 12, 0.35) 0%, rgba(14, 10, 12, 0.72) 70%, rgba(14, 10, 12, 0.92) 100%),
+    linear-gradient(180deg, rgba(14, 10, 12, 0.55) 0%, rgba(14, 10, 12, 0.35) 45%, rgba(14, 10, 12, 0.88) 100%);
+  pointer-events: none;
+}
+
 .hero__overlay {
   position: absolute;
   inset: 0;
+  z-index: -1;
   background:
     repeating-linear-gradient(115deg, rgba(201, 162, 75, 0.04) 0 2px, transparent 2px 26px);
   mask-image: radial-gradient(70% 70% at 50% 40%, #000 30%, transparent 80%);
   pointer-events: none;
 }
 
-.hero__content { position: relative; z-index: 2; max-width: 760px; }
+.hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.55);
+}
+
+@media (max-width: 600px) {
+  .hero::before { background-position: center 42%; opacity: 0.3; }
+}
 
 .hero__names {
   font-family: var(--font-display);
