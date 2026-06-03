@@ -225,6 +225,8 @@ a { color: inherit; }
 }
 
 .hero__names span { display: block; }
+.hero__names span:first-of-type { transform: translateX(clamp(-3.5rem, -9vw, -1rem)); }
+.hero__names span:last-of-type  { transform: translateX(clamp(1rem, 9vw, 3.5rem)); }
 .hero__names .amp {
   display: block;
   font-family: var(--font-script);
