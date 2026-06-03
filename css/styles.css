@@ -212,17 +212,19 @@ a { color: inherit; }
 .hero__names {
   font-family: var(--font-script);
   font-weight: 400;
-  margin: 10px 0 6px;
-  line-height: 1.0;
-  font-size: clamp(4.4rem, 22vw, 9rem);
+  margin: 4px 0 6px;
+  line-height: 1.18;
+  font-size: clamp(4rem, 20vw, 8.4rem);
   letter-spacing: 0.005em;
   text-shadow: none;
 }
 
 .hero__names span { display: block; }
 
-/* Gradient fill applied per-name so transforms don't break the clip */
+/* Gradient fill applied per-name so transforms don't break the clip.
+   Padding gives the tall script swashes room so they aren't clipped. */
 .hero__names span:not(.amp) {
+  padding: 0.1em 0.22em 0.16em;
   background: linear-gradient(180deg, var(--text) 20%, var(--gold-soft) 78%, var(--gold));
   -webkit-background-clip: text;
   background-clip: text;
@@ -231,14 +233,15 @@ a { color: inherit; }
   filter: drop-shadow(0 3px 20px rgba(0, 0, 0, 0.55));
 }
 
-.hero__names span:first-of-type { transform: translateX(clamp(-3.5rem, -9vw, -1rem)); }
-.hero__names span:last-of-type  { transform: translateX(clamp(1rem, 9vw, 3.5rem)); }
+.hero__names span:first-of-type { transform: translateX(clamp(-3rem, -8vw, -0.75rem)); }
+.hero__names span:last-of-type  { transform: translateX(clamp(0.75rem, 8vw, 3rem)); }
 
 .hero__names .amp {
   display: block;
   font-family: var(--font-script);
   font-size: 0.5em;
-  margin: -4px 0;
+  margin: -0.18em 0;
+  line-height: 1;
   -webkit-text-fill-color: var(--gold);
   color: var(--gold);
 }
